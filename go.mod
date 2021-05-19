@@ -1,1 +1,3 @@
-module "github.com/chuxiao/data_structure"
+module github.com/chuxiao/data_structure
+
+go 1.15

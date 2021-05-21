@@ -44,9 +44,7 @@ func (s *Stack) Top() ElementType {
 }
 
 func NewStack(cap int) *Stack {
-	if cap <= 0 {
-		panic(fmt.Sprintf("invalid stack cap: %d", cap))
-	}
+	comm.Assert(cap > 0, fmt.Sprintf("invalid stack cap: %d", cap))
 	return &Stack{
 		base: make([]ElementType, cap, cap),
 		top: -1,

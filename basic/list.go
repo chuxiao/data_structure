@@ -2,6 +2,7 @@ package basic
 
 import (
 	"fmt"
+	"github.com/chuxiao/data_structure/comm"
 	"strconv"
 	"strings"
 )
@@ -32,9 +33,7 @@ func (l *List) Insert(idx int, e ElementType) {
 		l.Append(e)
 		return
 	}
-	if idx >= size || idx < 0 {
-		panic(fmt.Sprintf("idx out of range: %d", idx))
-	}
+	comm.Assert(idx >= 0 && idx < l.Size(), fmt.Sprintf("out of range, idx: %d", idx))
 	n := &node{
 		e: e,
 	}
@@ -70,9 +69,7 @@ func (l *List) Append(e ElementType) {
 
 func (l *List) RemoveIndex(idx int) {
 	size := l.Size()
-	if idx >= size || idx < 0 {
-		panic(fmt.Sprintf("idx out of range: %d", idx))
-	}
+	comm.Assert(idx >= 0 && idx < l.Size(), fmt.Sprintf("out of range, idx: %d", idx))
 	if size == 1 {
 		l.head, l.tail = nil, nil
 	} else {
@@ -119,9 +116,7 @@ func (l *List) RemoveFirst(e ElementType) {
 
 func (l *List) Index(idx int) ElementType {
 	size := l.Size()
-	if idx >= size || idx < 0 {
-		panic(fmt.Sprintf("out of range, idx: %d", idx))
-	}
+	comm.Assert(idx >= 0 && idx < size, fmt.Sprintf("out of range, idx: %d", idx))
 	p := l.head
 	for i := 0; i < idx; i++ {
 		p = p.next

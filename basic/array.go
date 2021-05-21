@@ -2,6 +2,7 @@ package basic
 
 import (
 	"fmt"
+	"github.com/chuxiao/data_structure/comm"
 	"strconv"
 	"strings"
 )
@@ -22,9 +23,7 @@ func (a *Array) Size() int {
 }
 
 func (a *Array) Index(idx int) ElementType {
-	if idx >= a.Size() || idx < 0 {
-		panic(fmt.Sprintf("out of range, idx: %d", idx))
-	}
+	comm.Assert(idx >= 0 && idx < a.Size(), fmt.Sprintf("out of range, idx: %d", idx))
 	return a.base[idx]
 }
 
@@ -43,9 +42,7 @@ func (a *Array) Insert(idx int, e ElementType) {
 		return
 	}
 	size := a.Size()
-	if idx >= size || idx < 0 {
-		panic(fmt.Sprintf("out of range, idx: %d", idx))
-	}
+	comm.Assert(idx >= 0 && idx < a.Size(), fmt.Sprintf("out of range, idx: %d", idx))
 	if size == a.cap {
 		newCap := a.cap * 2
 		newBase := make([]ElementType, 0, newCap)
@@ -73,9 +70,7 @@ func (a *Array) Append(e ElementType) {
 
 func (a *Array) RemoveIndex(idx int) {
 	size := a.Size()
-	if idx >= size || idx < 0 {
-		panic(fmt.Sprintf("out of range, idx: %d", idx))
-	}
+	comm.Assert(idx >= 0 && idx < a.Size(), fmt.Sprintf("out of range, idx: %d", idx))
 	for i := idx; i < size - 1; i++ {
 		a.base[i] = a.base[i + 1]
 	}

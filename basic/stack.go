@@ -1,6 +1,9 @@
 package basic
 
-import "fmt"
+import (
+	"fmt"
+	"github.com/chuxiao/data_structure/comm"
+)
 
 type Stack struct {
 	base []ElementType
@@ -9,35 +12,35 @@ type Stack struct {
 }
 
 func (s *Stack) IsEmpty() bool {
-	// TODO
-	return false
+	return s.top < 0
 }
 
 func (s *Stack) IsFull() bool {
-	// TODO
-	return false
+	return s.top > s.cap - 1
 }
 
 func (s *Stack) Capacity() int {
-	// TODO
-	return 0
+	return s.cap
 }
 
 func (s *Stack) Clear() {
-	// TODO
+	s.top = -1
 }
 
 func (s *Stack) Push(e ElementType) {
-	// TODO
+	comm.Assert(!s.IsFull(), "stack is full")
+	s.top++
+	s.base[s.top] = e
 }
 
 func (s *Stack) Pop() {
-	// TODO
+	comm.Assert(!s.IsEmpty(), "stack is empty")
+	s.top--
 }
 
 func (s *Stack) Top() ElementType {
-	// TODO
-	return 0
+	comm.Assert(!s.IsEmpty(), "stack is empty")
+	return s.base[s.top]
 }
 
 func NewStack(cap int) *Stack {
@@ -45,7 +48,7 @@ func NewStack(cap int) *Stack {
 		panic(fmt.Sprintf("invalid stack cap: %d", cap))
 	}
 	return &Stack{
-		base: make([]ElementType, 0, cap),
+		base: make([]ElementType, cap, cap),
 		top: -1,
 		cap: cap,
 	}
